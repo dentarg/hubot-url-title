@@ -1,0 +1,22 @@
+{
+  "name": "hubot-url-title",
+  "version": "0.0.1",
+  "description": "Returns the title when a link is posted",
+  "main": "src/scripts/hubot-url-title",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dentarg/hubot-url-title.git"
+  },
+  "keywords": [
+    "hubot"
+  ],
+  "author": "dentarg",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/dentarg/hubot-url-title/issues"
+  },
+  "homepage": "https://github.com/dentarg/hubot-url-title"
+}
