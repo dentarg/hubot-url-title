@@ -20,12 +20,12 @@ Then add hubot-url-title to `external-scripts.json`:
 
 #### Regular expression used to exclude URLs
 
-    HUBOT_HTTP_INFO_IGNORE_URLS
+    HUBOT_URL_TITLE_IGNORE_URLS
 
 If you use HipChat, it's useful to ignore sites already supported by HipChat:
 
-    HUBOT_HTTP_INFO_IGNORE_URLS="github.com|twitter.com|imgur.com"
+    HUBOT_URL_TITLE_IGNORE_URLS="github.com|twitter.com|imgur.com"
 
 #### Comma-separated list of users to ignore
 
-    HUBOT_HTTP_INFO_IGNORE_USERS
+    HUBOT_URL_TITLE_IGNORE_USERS

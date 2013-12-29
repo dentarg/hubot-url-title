@@ -7,8 +7,8 @@
 #   "request": "2.30.0"
 #
 # Configuration:
-#   HUBOT_HTTP_INFO_IGNORE_URLS - RegEx used to exclude Urls
-#   HUBOT_HTTP_INFO_IGNORE_USERS - Comma-separated list of users to ignore
+#   HUBOT_URL_TITLE_IGNORE_URLS - RegEx used to exclude Urls
+#   HUBOT_URL_TITLE_IGNORE_USERS - Comma-separated list of users to ignore
 #
 # Commands:
 #   http(s)://<site> - prints the title for site linked
@@ -23,8 +23,8 @@ request    = require 'request'
 module.exports = (robot) ->
 
   ignoredusers = []
-  if process.env.HUBOT_HTTP_INFO_IGNORE_USERS?
-    ignoredusers = process.env.HUBOT_HTTP_INFO_IGNORE_USERS.split(',')
+  if process.env.HUBOT_URL_TITLE_IGNORE_USERS?
+    ignoredusers = process.env.HUBOT_URL_TITLE_IGNORE_USERS.split(',')
 
   robot.hear /(http(?:s?):\/\/(\S*))/i, (msg) ->
     url = msg.match[1]
@@ -37,7 +37,7 @@ module.exports = (robot) ->
     # filter out some common files from trying
     ignore = url.match(/\.(png|jpg|jpeg|gif|txt|zip|tar\.bz|js|css)/)
 
-    ignorePattern = process.env.HUBOT_HTTP_INFO_IGNORE_URLS
+    ignorePattern = process.env.HUBOT_URL_TITLE_IGNORE_URLS
     if !ignore && ignorePattern
       ignore = url.match(ignorePattern)
 
