@@ -1,6 +1,6 @@
 {
   "name": "hubot-url-title",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Returns the title when a link is posted",
   "main": "src/scripts/hubot-url-title",
   "scripts": {
