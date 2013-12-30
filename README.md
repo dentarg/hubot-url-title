@@ -24,7 +24,7 @@ Then add hubot-url-title to `external-scripts.json`:
 
 If you use HipChat, it's useful to ignore sites already supported by HipChat:
 
-    HUBOT_URL_TITLE_IGNORE_URLS="github.com|twitter.com|imgur.com"
+    HUBOT_URL_TITLE_IGNORE_URLS="github.com|twitter.com|imgur.com|youtube.com|spotify.com|instagram.com"
 
 #### Comma-separated list of users to ignore
 
