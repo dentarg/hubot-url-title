@@ -29,3 +29,15 @@ If you use HipChat, it's useful to ignore sites already supported by HipChat:
 #### Comma-separated list of users to ignore
 
     HUBOT_URL_TITLE_IGNORE_USERS
+
+## Release workflow
+
+    git ci -m 'new cool feature'
+    git ci -m 'new nice feature'
+
+    npm version [<newversion> | major | minor | patch]
+
+    git push
+    git push --tags
+
+    npm publish .
