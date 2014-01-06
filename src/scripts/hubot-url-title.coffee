@@ -45,11 +45,12 @@ module.exports = (robot) ->
       request(
         url
         (error, response, body) ->
-          jsdom.env(
-            body
-            done: (errors, window) ->
-              unless errors
-                title = window.document.title.trim()
-                msg.send "#{title}"
-          )
+          if response.statusCode == 200
+            jsdom.env(
+              body
+              done: (errors, window) ->
+                unless errors
+                  title = window.document.title.trim()
+                  msg.send "#{title}"
+            )
       )
