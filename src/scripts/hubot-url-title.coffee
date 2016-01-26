@@ -5,6 +5,9 @@
 #   "cheerio": "^0.19.0",
 #   "underscore": "~1.3.3"
 #   "request": "~2.30.0"
+#   "iconv": "2.1.11"
+#   "jschardet": "1.4.1"
+#   "charset": "1.0.0"
 #
 # Configuration:
 #   HUBOT_URL_TITLE_IGNORE_URLS - RegEx used to exclude Urls
@@ -19,6 +22,9 @@
 cheerio    = require 'cheerio'
 _          = require 'underscore'
 request    = require 'request'
+charset    = require 'charset'
+jschardet  = require 'jschardet'
+Iconv      = require 'iconv'
 
 module.exports = (robot) ->
 
@@ -43,10 +49,20 @@ module.exports = (robot) ->
 
     unless ignore
       request(
-        url
+        url, {encoding:null}
         (error, response, body) ->
           if response.statusCode == 200
-            document = cheerio.load(body)
-            title = document('title').text().trim()
-            msg.send "#{title}"
+            enc = charset(response.headers, body)
+            enc = enc || jschardet.detect(body).encoding.toLowerCase()
+            robot.logger.debug "webpage encoding is #{enc}"
+            if enc != 'utf-8'
+              iconv = new Iconv.Iconv(enc, 'UTF-8//TRANSLIT//IGNORE')
+              html = iconv.convert(new Buffer(body, 'binary')).toString('utf-8')
+              document = cheerio.load(html)
+              title = document('head title').first().text().trim().replace(/\s+/g, " ")
+              msg.send "#{title}"
+            else
+              document = cheerio.load(body)
+              title = document('head title').first().text().trim().replace(/\s+/g, " ")
+              msg.send "#{title}"
       )
