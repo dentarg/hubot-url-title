@@ -17,7 +17,7 @@
 #   http(s)://<site> - prints the title for site linked
 #
 # Author:
-#   ajacksified, dentarg
+#   ajacksified, dentarg, impca
 
 cheerio    = require 'cheerio'
 _          = require 'underscore'
