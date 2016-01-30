@@ -1,8 +1,12 @@
 # Change Log
 
-## [Unreleased](https://github.com/dentarg/hubot-url-title/tree/HEAD)
+## [v1.2.2](https://github.com/dentarg/hubot-url-title/tree/v1.2.2) (2016-01-30)
+[Full Changelog](https://github.com/dentarg/hubot-url-title/compare/v1.2.1...v1.2.2)
 
-[Full Changelog](https://github.com/dentarg/hubot-url-title/compare/v1.2.1...HEAD)
+**Closed issues:**
+
+- Newlines from title tag are not stripped [\#6](https://github.com/dentarg/hubot-url-title/issues/6)
+- Other elements with title tags are included in the title [\#5](https://github.com/dentarg/hubot-url-title/issues/5)
 
 **Merged pull requests:**
 

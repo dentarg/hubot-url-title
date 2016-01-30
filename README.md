@@ -44,4 +44,4 @@ If you use HipChat, it's useful to ignore sites already supported by HipChat:
 
 Update the changelog:
 
-    github_changelog_generator
+    dotenv github_changelog_generator
