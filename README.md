@@ -41,3 +41,7 @@ If you use HipChat, it's useful to ignore sites already supported by HipChat:
     git push --tags
 
     npm publish .
+
+Update the changelog:
+
+    github_changelog_generator
