@@ -41,7 +41,7 @@ module.exports = (robot) ->
       return
 
     # filter out some common files from trying
-    ignore = url.match(/\.(png|jpg|jpeg|gif|txt|zip|tar\.bz|js|css)/)
+    ignore = url.match(/\.(png|jpg|jpeg|gif|txt|zip|tar\.bz|js|css|pdf)/)
 
     ignorePattern = process.env.HUBOT_URL_TITLE_IGNORE_URLS
     if !ignore && ignorePattern
