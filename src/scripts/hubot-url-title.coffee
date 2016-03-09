@@ -32,37 +32,36 @@ module.exports = (robot) ->
   if process.env.HUBOT_URL_TITLE_IGNORE_USERS?
     ignoredusers = process.env.HUBOT_URL_TITLE_IGNORE_USERS.split(',')
 
-  robot.hear /(http(?:s?):\/\/(\S*))/i, (msg) ->
-    url = msg.match[1]
+  robot.hear /(http(?:s?):\/\/(\S*))/gi, (msg) ->
+    for url in msg.match
+      username = msg.message.user.name
+      if _.some(ignoredusers, (user) -> user == username)
+        console.log 'ignoring user due to blacklist:', username
+        return
 
-    username = msg.message.user.name
-    if _.some(ignoredusers, (user) -> user == username)
-      console.log 'ignoring user due to blacklist:', username
-      return
+      # filter out some common files from trying
+      ignore = url.match(/\.(png|jpg|jpeg|gif|txt|zip|tar\.bz|js|css|pdf)/)
 
-    # filter out some common files from trying
-    ignore = url.match(/\.(png|jpg|jpeg|gif|txt|zip|tar\.bz|js|css|pdf)/)
+      ignorePattern = process.env.HUBOT_URL_TITLE_IGNORE_URLS
+      if !ignore && ignorePattern
+        ignore = url.match(ignorePattern)
 
-    ignorePattern = process.env.HUBOT_URL_TITLE_IGNORE_URLS
-    if !ignore && ignorePattern
-      ignore = url.match(ignorePattern)
-
-    unless ignore
-      request(
-        url, {encoding:null}
-        (error, response, body) ->
-          if response.statusCode == 200
-            enc = charset(response.headers, body)
-            enc = enc || jschardet.detect(body).encoding.toLowerCase()
-            robot.logger.debug "webpage encoding is #{enc}"
-            if enc != 'utf-8'
-              iconv = new Iconv.Iconv(enc, 'UTF-8//TRANSLIT//IGNORE')
-              html = iconv.convert(new Buffer(body, 'binary')).toString('utf-8')
-              document = cheerio.load(html)
-              title = document('head title').first().text().trim().replace(/\s+/g, " ")
-              msg.send "#{title}"
-            else
-              document = cheerio.load(body)
-              title = document('head title').first().text().trim().replace(/\s+/g, " ")
-              msg.send "#{title}"
-      )
+      unless ignore
+        request(
+          url, {encoding:null}
+          (error, response, body) ->
+            if response.statusCode == 200
+              enc = charset(response.headers, body)
+              enc = enc || jschardet.detect(body).encoding.toLowerCase()
+              robot.logger.debug "webpage encoding is #{enc}"
+              if enc != 'utf-8'
+                iconv = new Iconv.Iconv(enc, 'UTF-8//TRANSLIT//IGNORE')
+                html = iconv.convert(new Buffer(body, 'binary')).toString('utf-8')
+                document = cheerio.load(html)
+                title = document('head title').first().text().trim().replace(/\s+/g, " ")
+                msg.send "#{title}"
+              else
+                document = cheerio.load(body)
+                title = document('head title').first().text().trim().replace(/\s+/g, " ")
+                msg.send "#{title}"
+        )
