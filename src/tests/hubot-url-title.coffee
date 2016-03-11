@@ -6,7 +6,7 @@ co = require('co')
 expect = require('chai').expect
 
 describe 'hubot-url-title', ->
-  this.timeout(5000)
+  this.timeout(22000)
 
   beforeEach ->
     @room = helper.createRoom(httpd: false)
@@ -49,3 +49,15 @@ describe 'hubot-url-title', ->
       ]
       expect(@room.messages[1][1]).to.be.oneOf titles
       expect(@room.messages[2][1]).to.be.oneOf titles
+
+  context "user posts link to large ISO file", ->
+    beforeEach ->
+      co =>
+        yield @room.user.say 'john', "http://cdimage.debian.org/debian-cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-CD-1.iso"
+        yield new Promise.delay(20000)
+
+    it 'stops download because it exceeds the maximum size', ->
+      expect(@room.messages).to.eql [
+        ['john', "http://cdimage.debian.org/debian-cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-CD-1.iso"]
+        ['hubot', "Resource at http://cdimage.debian.org/debian-cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-CD-1.iso exceeds the maximum size."]
+      ]
