@@ -26,6 +26,8 @@ charset    = require 'charset'
 jschardet  = require 'jschardet'
 Iconv      = require 'iconv'
 
+MAX_SIZE_DOWNLOADED_FILES = 1000000
+
 module.exports = (robot) ->
 
   ignoredusers = []
@@ -47,21 +49,24 @@ module.exports = (robot) ->
         ignore = url.match(ignorePattern)
 
       unless ignore
-        request(
-          url, {encoding:null}
-          (error, response, body) ->
-            if response.statusCode == 200
-              enc = charset(response.headers, body)
-              enc = enc || jschardet.detect(body).encoding.toLowerCase()
-              robot.logger.debug "webpage encoding is #{enc}"
-              if enc != 'utf-8'
-                iconv = new Iconv.Iconv(enc, 'UTF-8//TRANSLIT//IGNORE')
-                html = iconv.convert(new Buffer(body, 'binary')).toString('utf-8')
-                document = cheerio.load(html)
-                title = document('head title').first().text().trim().replace(/\s+/g, " ")
-                msg.send "#{title}"
-              else
-                document = cheerio.load(body)
-                title = document('head title').first().text().trim().replace(/\s+/g, " ")
-                msg.send "#{title}"
-        )
+        size = 0
+        request url, {encoding:null}, (error, response, body) ->
+          if response.statusCode == 200
+            enc = charset(response.headers, body)
+            enc = enc || jschardet.detect(body).encoding.toLowerCase()
+            robot.logger.debug "webpage encoding is #{enc}"
+            if enc != 'utf-8'
+              iconv = new Iconv.Iconv(enc, 'UTF-8//TRANSLIT//IGNORE')
+              html = iconv.convert(new Buffer(body, 'binary')).toString('utf-8')
+              document = cheerio.load(html)
+              title = document('head title').first().text().trim().replace(/\s+/g, " ")
+              msg.send "#{title}"
+            else
+              document = cheerio.load(body)
+              title = document('head title').first().text().trim().replace(/\s+/g, " ")
+              msg.send "#{title}"
+        .on 'data', (chunk) ->
+          size += chunk.length
+          if size > MAX_SIZE_DOWNLOADED_FILES
+            this.abort()
+            msg.send "Resource at #{url} exceeds the maximum size."
