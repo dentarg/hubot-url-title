@@ -32,7 +32,17 @@ If you use HipChat, it's useful to ignore sites already supported by HipChat:
 
     HUBOT_URL_TITLE_IGNORE_USERS
 
-## Release workflow
+## Development
+
+Install dependencies
+
+    npm install
+
+Run tests
+
+    npm test
+
+### Release workflow
 
     git ci -m 'new cool feature'
     git ci -m 'new nice feature'
@@ -46,4 +56,4 @@ If you use HipChat, it's useful to ignore sites already supported by HipChat:
 
 Update the changelog:
 
-    dotenv github_changelog_generator
+    github_changelog_generator
