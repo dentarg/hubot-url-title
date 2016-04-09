@@ -1,5 +1,7 @@
 # hubot-url-title
 
+[![Build Status](https://travis-ci.org/dentarg/hubot-url-title.svg?branch=master)](https://travis-ci.org/dentarg/hubot-url-title) [![npm version](https://badge.fury.io/js/hubot-url-title.svg)](https://www.npmjs.com/package/hubot-url-title) [![Dependency Status](https://david-dm.org/dentarg/hubot-url-title.svg)](https://david-dm.org/dentarg/hubot-url-title) [![devDependency Status](https://david-dm.org/dentarg/hubot-url-title/dev-status.svg)](https://david-dm.org/dentarg/hubot-url-title#info=devDependencies)
+
 Returns the title when a link is posted.
 
 ## Installation
