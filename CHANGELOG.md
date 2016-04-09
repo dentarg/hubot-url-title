@@ -1,5 +1,25 @@
 # Change Log
 
+## [v1.3.0](https://github.com/dentarg/hubot-url-title/tree/v1.3.0) (2016-04-09)
+[Full Changelog](https://github.com/dentarg/hubot-url-title/compare/v1.2.2...v1.3.0)
+
+**Implemented enhancements:**
+
+- Add tests [\#8](https://github.com/dentarg/hubot-url-title/issues/8)
+- Mock requests [\#17](https://github.com/dentarg/hubot-url-title/pull/17) ([pchaigno](https://github.com/pchaigno))
+- Enforce a maximum download size [\#16](https://github.com/dentarg/hubot-url-title/pull/16) ([pchaigno](https://github.com/pchaigno))
+
+**Fixed bugs:**
+
+- Enforce a maximum download size [\#16](https://github.com/dentarg/hubot-url-title/pull/16) ([pchaigno](https://github.com/pchaigno))
+- Several URLs in the same message [\#15](https://github.com/dentarg/hubot-url-title/pull/15) ([pchaigno](https://github.com/pchaigno))
+
+**Merged pull requests:**
+
+- ignore pdf file links [\#12](https://github.com/dentarg/hubot-url-title/pull/12) ([impca](https://github.com/impca))
+- Travis build [\#11](https://github.com/dentarg/hubot-url-title/pull/11) ([pchaigno](https://github.com/pchaigno))
+- Tests [\#10](https://github.com/dentarg/hubot-url-title/pull/10) ([pchaigno](https://github.com/pchaigno))
+
 ## [v1.2.2](https://github.com/dentarg/hubot-url-title/tree/v1.2.2) (2016-01-30)
 [Full Changelog](https://github.com/dentarg/hubot-url-title/compare/v1.2.1...v1.2.2)
 
