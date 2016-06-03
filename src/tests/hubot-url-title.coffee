@@ -74,3 +74,19 @@ describe 'hubot-url-title', ->
         ['john', "http://cdimage.debian.org/debian-cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-CD-1.iso"]
         ['hubot', "Resource at http://cdimage.debian.org/debian-cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-CD-1.iso exceeds the maximum size."]
       ]
+
+
+  context "Japanese user posts link to Etsy", ->
+    beforeEach ->
+      nock('https://etsy.com', reqheaders: {'Accept-Language':'ja'}).get('/').replyWithFile(200, 'src/tests/test_files/etsy.ja.html')
+      process.env.HUBOT_URL_TITLE_ACCEPT_LANGUAGE = 'ja'
+      co =>
+        @room.user.say 'john', "https://etsy.com"
+        new Promise.delay(100)
+
+    it 'posts the title of the top page', ->
+      expect(nock.isDone()).to.be.true
+      expect(@room.messages).to.eql [
+        ['john', "https://etsy.com"]
+        ['hubot', "Etsy :: すべてのハンドメイドのマーケットプレイス"]
+      ]
