@@ -12,6 +12,7 @@
 # Configuration:
 #   HUBOT_URL_TITLE_IGNORE_URLS - RegEx used to exclude Urls
 #   HUBOT_URL_TITLE_IGNORE_USERS - Comma-separated list of users to ignore
+#   HUBOT_URL_TITLE_ACCEPT_LANGUAGE - Language that can be interpreted by the client
 #
 # Commands:
 #   http(s)://<site> - prints the title for site linked
@@ -50,7 +51,10 @@ module.exports = (robot) ->
 
       unless ignore
         size = 0
-        request url, {encoding:null}, (error, response, body) ->
+        options = {encoding:null, headers:{}}
+        if process.env.HUBOT_URL_TITLE_ACCEPT_LANGUAGE?
+          options['headers']['Accept-Language'] = process.env.HUBOT_URL_TITLE_ACCEPT_LANGUAGE
+        request url, options, (error, response, body) ->
           if response.statusCode == 200
             enc = charset(response.headers, body)
             enc = enc || jschardet.detect(body).encoding.toLowerCase()
