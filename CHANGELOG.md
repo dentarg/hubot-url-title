@@ -1,5 +1,16 @@
 # Change Log
 
+## [v1.4.0](https://github.com/dentarg/hubot-url-title/tree/v1.4.0) (2016-06-06)
+[Full Changelog](https://github.com/dentarg/hubot-url-title/compare/v1.3.0...v1.4.0)
+
+**Closed issues:**
+
+- Add Accept-Language header to HTTP Request [\#19](https://github.com/dentarg/hubot-url-title/issues/19)
+
+**Merged pull requests:**
+
+- Configurable Accept-Language HTTP request-header field [\#20](https://github.com/dentarg/hubot-url-title/pull/20) ([mizoR](https://github.com/mizoR))
+
 ## [v1.3.0](https://github.com/dentarg/hubot-url-title/tree/v1.3.0) (2016-04-09)
 [Full Changelog](https://github.com/dentarg/hubot-url-title/compare/v1.2.2...v1.3.0)
 
