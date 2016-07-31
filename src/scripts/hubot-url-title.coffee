@@ -55,7 +55,9 @@ module.exports = (robot) ->
         if process.env.HUBOT_URL_TITLE_ACCEPT_LANGUAGE?
           options['headers']['Accept-Language'] = process.env.HUBOT_URL_TITLE_ACCEPT_LANGUAGE
         request url, options, (error, response, body) ->
-          if response.statusCode == 200
+          if error
+            console.log error
+          else if response.statusCode == 200
             enc = charset(response.headers, body)
             enc = enc || jschardet.detect(body).encoding.toLowerCase()
             robot.logger.debug "webpage encoding is #{enc}"
