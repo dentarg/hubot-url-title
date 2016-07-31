@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.5.0](https://github.com/dentarg/hubot-url-title/tree/v1.5.0) (2016-07-31)
+[Full Changelog](https://github.com/dentarg/hubot-url-title/compare/v1.4.0...v1.5.0)
+
+**Fixed bugs:**
+
+- Stacktrace when attempting to load NYTimes article [\#21](https://github.com/dentarg/hubot-url-title/issues/21)
+- Fix redirects with cookies [\#22](https://github.com/dentarg/hubot-url-title/pull/22) ([pchaigno](https://github.com/pchaigno))
+
 ## [v1.4.0](https://github.com/dentarg/hubot-url-title/tree/v1.4.0) (2016-06-06)
 [Full Changelog](https://github.com/dentarg/hubot-url-title/compare/v1.3.0...v1.4.0)
 
