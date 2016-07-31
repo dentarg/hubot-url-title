@@ -90,3 +90,34 @@ describe 'hubot-url-title', ->
         ['john', "https://etsy.com"]
         ['hubot', "Etsy :: すべてのハンドメイドのマーケットプレイス"]
       ]
+
+
+  context "user posts link with redirects", ->
+    beforeEach ->
+      nock('http://www.nytimes.com')
+        .get('/2016/07/31/us/politics/us-wrestles-with-how-to-fight-back-against-cyberattacks.html')
+        .reply(303, 'See Other', {
+          'Location': 'http://www.nytimes.com/glogin?URI=http://www.nytimes.com/2016/07/31/us/politics/us-wrestles-with-how-to-fight-back-against-cyberattacks.html?_r=0'
+        })
+      nock('http://www.nytimes.com', {
+          reqheaders: {
+            'Cookie': 'NYT-S=123456'
+          }
+        }).get('/2016/07/31/us/politics/us-wrestles-with-how-to-fight-back-against-cyberattacks.html?_r=0')
+        .replyWithFile(200, 'src/tests/test_files/nytimes.html')
+      nock('http://www.nytimes.com')
+        .get('/glogin?URI=http://www.nytimes.com/2016/07/31/us/politics/us-wrestles-with-how-to-fight-back-against-cyberattacks.html?_r=0')
+        .reply(302, 'Found', {
+          'Set-Cookie': 'NYT-S=123456'
+          'Location': 'http://www.nytimes.com/2016/07/31/us/politics/us-wrestles-with-how-to-fight-back-against-cyberattacks.html?_r=0'
+        })
+      co =>
+        @room.user.say 'john', "http://www.nytimes.com/2016/07/31/us/politics/us-wrestles-with-how-to-fight-back-against-cyberattacks.html"
+        new Promise.delay(100)
+
+    it 'follows redirects and posts the page title', ->
+      expect(nock.isDone()).to.be.true
+      expect(@room.messages).to.eql [
+        ['john', "http://www.nytimes.com/2016/07/31/us/politics/us-wrestles-with-how-to-fight-back-against-cyberattacks.html"]
+        ['hubot', "U.S. Wrestles With How to Fight Back Against Cyberattacks - The New York Times"]
+      ]
