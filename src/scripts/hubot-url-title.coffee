@@ -13,6 +13,7 @@
 #   HUBOT_URL_TITLE_IGNORE_URLS - RegEx used to exclude Urls
 #   HUBOT_URL_TITLE_IGNORE_USERS - Comma-separated list of users to ignore
 #   HUBOT_URL_TITLE_ACCEPT_LANGUAGE - Language that can be interpreted by the client
+#   HUBOT_URL_TITLE_MAX_LEN - Maximum length for title response, -1 for no limit (default)
 #
 # Commands:
 #   http(s)://<site> - prints the title for site linked
@@ -28,6 +29,9 @@ jschardet  = require 'jschardet'
 Iconv      = require 'iconv'
 
 MAX_SIZE_DOWNLOADED_FILES = 1000000
+MAX_TITLE_LENGTH = process.env.HUBOT_URL_TITLE_MAX_LEN or '-1'
+MAX_TITLE_LENGTH = parseInt(MAX_TITLE_LENGTH)
+TITLE_LIMIT = (MAX_TITLE_LENGTH > -1)
 
 module.exports = (robot) ->
 
@@ -71,10 +75,14 @@ module.exports = (robot) ->
               html = iconv.convert(new Buffer(body, 'binary')).toString('utf-8')
               document = cheerio.load(html)
               title = document('head title').first().text().trim().replace(/\s+/g, " ")
+              if (title.length > MAX_TITLE_LENGTH) and TITLE_LIMIT
+                title = title.substr(0,MAX_TITLE_LENGTH-3) + "..."
               msg.send "#{title}"
             else
               document = cheerio.load(body)
               title = document('head title').first().text().trim().replace(/\s+/g, " ")
+              if (title.length > MAX_TITLE_LENGTH) and TITLE_LIMIT
+                title = title.substr(0,MAX_TITLE_LENGTH-3) + "..."
               msg.send "#{title}"
         .on 'data', (chunk) ->
           size += chunk.length
