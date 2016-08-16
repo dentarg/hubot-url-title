@@ -135,3 +135,18 @@ describe 'hubot-url-title', ->
         ['amanda', "http://www.vishay.com/company/press/releases/2016/160721VLMU1610/"]
         ['hubot', "Vishay - New Vishay Intertechnology Mid-Power UV LED in 365 nm Wavelength Range Delivers Exceptionally Long Lifetime in Compact Package Redpines Vishay Systems Vishay Systems Sr. Manager, Global Communications MarCom Manager, Asia Director of Business Development, USI Electronics Vishay Intertechnology Asia Pte Ltd Vishay Semiconductor GmbH Vice President, Integrated Products Division Vishay Measurements Group Vishay Nobel Wall Street Communications Lorenzoni GmbH, Public Relations Manager, Marketing Communications Vishay Measurements Group Nobel Ltd. Vishay Nobel E.V.P., Yosun Industrial Corp. Vishay Nobel Wall Street Communications Vishay Intertechnology, Inc. Vice President of Marketing, Digi-Key Corporation Manager, MarCom Asia"]
       ]
+
+  context "page has very long title and is limited in response length", ->
+    beforeEach ->
+      process.env.HUBOT_URL_TITLE_MAX_LEN = '100'
+      nock('http://www.vishay.com/company/press/releases/2016/160721VLMU1610/').get('/').replyWithFile(200, 'src/tests/test_files/vishay.html')
+      co =>
+        @room.user.say 'amanda', "http://www.vishay.com/company/press/releases/2016/160721VLMU1610/"
+        new Promise.delay(100)
+
+    it 'responds with a truncated title', ->
+      expect(nock.isDone()).to.be.true
+      expect(@room.messages).to.eql [
+        ['amanda', "http://www.vishay.com/company/press/releases/2016/160721VLMU1610/"]
+        ['hubot', "Vishay - New Vishay Intertechnology Mid-Power UV LED in 365 nm Wavelength Range Delivers Exceptio..."]
+      ]
