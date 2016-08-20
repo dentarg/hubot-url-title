@@ -13,6 +13,7 @@
 #   HUBOT_URL_TITLE_IGNORE_URLS - RegEx used to exclude Urls
 #   HUBOT_URL_TITLE_IGNORE_USERS - Comma-separated list of users to ignore
 #   HUBOT_URL_TITLE_ACCEPT_LANGUAGE - Language that can be interpreted by the client
+#   HUBOT_URL_TITLE_MAX_LEN - Maximum length for title response, -1 for no limit (default)
 #
 # Commands:
 #   http(s)://<site> - prints the title for site linked
@@ -29,7 +30,22 @@ Iconv      = require 'iconv'
 
 MAX_SIZE_DOWNLOADED_FILES = 1000000
 
-module.exports = (robot) ->
+documentToProcessedTitle = (document) ->
+	# Extract title from document and convert to one neat line
+	fullTitle = document('head title').first().text().trim().replace(/\s+/g, " ")
+
+	# Recalculate title length limiting each time
+	maxTitleLength = process.env.HUBOT_URL_TITLE_MAX_LEN or '-1'
+	maxTitleLength = parseInt(maxTitleLength)
+	limitTitleLength = (maxTitleLength > -1)
+
+	# Determine if length limiting is required and optionally trim title text
+	if limitTitleLength and (fullTitle.length > maxTitleLength)
+		title = fullTitle.substr(0,maxTitleLength-3) + "..."
+	else
+		title = fullTitle
+
+hubotUrlTitle = (robot) ->
 
   ignoredusers = []
   if process.env.HUBOT_URL_TITLE_IGNORE_USERS?
@@ -70,14 +86,15 @@ module.exports = (robot) ->
               iconv = new Iconv.Iconv(enc, 'UTF-8//TRANSLIT//IGNORE')
               html = iconv.convert(new Buffer(body, 'binary')).toString('utf-8')
               document = cheerio.load(html)
-              title = document('head title').first().text().trim().replace(/\s+/g, " ")
-              msg.send "#{title}"
+              msg.send documentToProcessedTitle(document)
             else
               document = cheerio.load(body)
-              title = document('head title').first().text().trim().replace(/\s+/g, " ")
-              msg.send "#{title}"
+              msg.send documentToProcessedTitle(document)
         .on 'data', (chunk) ->
           size += chunk.length
           if size > MAX_SIZE_DOWNLOADED_FILES
             this.abort()
             msg.send "Resource at #{url} exceeds the maximum size."
+
+# Export/expose only the processing function for the robot
+module.exports = hubotUrlTitle
