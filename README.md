@@ -38,6 +38,12 @@ If you use HipChat, it's useful to ignore sites already supported by HipChat:
 
 If present, uses this value in the HTTP [`Accept-Language`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) header, when fetching the title.
 
+#### Set maximum length of title to display
+
+    HUBOT_URL_TITLE_MAX_LEN="50"
+
+If present, uses this value to limit the length of the title displayed in chat. Default: no limit.
+
 ## Development
 
 Install dependencies
