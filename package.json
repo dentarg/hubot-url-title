@@ -34,7 +34,7 @@
     "coffee-script": "~1.11.1",
     "hubot-test-helper": "~1.5.0",
     "mocha": "~3.1.2",
-    "nock": "~8.1.0",
+    "nock": "~9.0.2",
     "npm-check-updates":"~2.8.5"
   }
 }
