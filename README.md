@@ -32,6 +32,12 @@ If you use HipChat, it's useful to ignore sites already supported by HipChat:
 
     HUBOT_URL_TITLE_IGNORE_USERS
 
+#### Set the `Accept-Language` header
+
+    HUBOT_URL_TITLE_ACCEPT_LANGUAGE="sv-SE"
+
+If present, uses this value in the HTTP [`Accept-Language`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) header, when fetching the title.
+
 ## Development
 
 Install dependencies
