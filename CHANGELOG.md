@@ -1,5 +1,18 @@
 # Change Log
 
+## [v1.6.0](https://github.com/dentarg/hubot-url-title/tree/v1.6.0) (2016-10-30)
+[Full Changelog](https://github.com/dentarg/hubot-url-title/compare/v1.5.0...v1.6.0)
+
+**Closed issues:**
+
+- Limit length of title returned to chat [\#24](https://github.com/dentarg/hubot-url-title/issues/24)
+
+**Merged pull requests:**
+
+- Update all dependencies to latest listed stable version [\#27](https://github.com/dentarg/hubot-url-title/pull/27) ([thomasrussellmurphy](https://github.com/thomasrussellmurphy))
+- Update dependencies [\#26](https://github.com/dentarg/hubot-url-title/pull/26) ([thomasrussellmurphy](https://github.com/thomasrussellmurphy))
+- Add option to limit length of title response [\#25](https://github.com/dentarg/hubot-url-title/pull/25) ([thomasrussellmurphy](https://github.com/thomasrussellmurphy))
+
 ## [v1.5.0](https://github.com/dentarg/hubot-url-title/tree/v1.5.0) (2016-07-31)
 [Full Changelog](https://github.com/dentarg/hubot-url-title/compare/v1.4.0...v1.5.0)
 
