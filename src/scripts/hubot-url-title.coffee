@@ -31,19 +31,19 @@ Iconv      = require 'iconv'
 MAX_SIZE_DOWNLOADED_FILES = 1000000
 
 documentToProcessedTitle = (document) ->
-	# Extract title from document and convert to one neat line
-	fullTitle = document('head title').first().text().trim().replace(/\s+/g, " ")
+  # Extract title from document and convert to one neat line
+  fullTitle = document('head title').first().text().trim().replace(/\s+/g, " ")
 
-	# Recalculate title length limiting each time
-	maxTitleLength = process.env.HUBOT_URL_TITLE_MAX_LEN or '-1'
-	maxTitleLength = parseInt(maxTitleLength)
-	limitTitleLength = (maxTitleLength > -1)
+  # Recalculate title length limiting each time
+  maxTitleLength = process.env.HUBOT_URL_TITLE_MAX_LEN or '-1'
+  maxTitleLength = parseInt(maxTitleLength)
+  limitTitleLength = (maxTitleLength > -1)
 
-	# Determine if length limiting is required and optionally trim title text
-	if limitTitleLength and (fullTitle.length > maxTitleLength)
-		title = fullTitle.substr(0,maxTitleLength-3) + "..."
-	else
-		title = fullTitle
+  # Determine if length limiting is required and optionally trim title text
+  if limitTitleLength and (fullTitle.length > maxTitleLength)
+    title = fullTitle.substr(0,maxTitleLength-3) + "..."
+  else
+    title = fullTitle
 
 hubotUrlTitle = (robot) ->
 
