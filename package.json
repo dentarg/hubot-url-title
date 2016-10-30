@@ -1,6 +1,6 @@
 {
   "name": "hubot-url-title",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Returns the title when a link is posted",
   "main": "src/scripts/hubot-url-title",
   "scripts": {
@@ -35,6 +35,6 @@
     "hubot-test-helper": "~1.5.0",
     "mocha": "~3.1.2",
     "nock": "~9.0.2",
-    "npm-check-updates":"~2.8.5"
+    "npm-check-updates": "~2.8.5"
   }
 }
