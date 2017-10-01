@@ -22,19 +22,19 @@
   "dependencies": {
     "charset": "~1.0.0",
     "cheerio": "~0.22.0",
-    "iconv": "~2.2.1",
-    "jschardet": "~1.4.1",
-    "request": "~2.76.0",
+    "iconv": "~2.3.0",
+    "jschardet": "~1.5.1",
+    "request": "~2.83.0",
     "underscore": "~1.8.3"
   },
   "devDependencies": {
-    "bluebird": "~3.4.6",
-    "chai": "~3.5.0",
+    "bluebird": "~3.5.0",
+    "chai": "~4.1.2",
     "co": "~4.6.0",
-    "coffee-script": "~1.11.1",
-    "hubot-test-helper": "~1.5.0",
-    "mocha": "~3.1.2",
+    "coffee-script": "~1.12.7",
+    "hubot-test-helper": "~1.7.0",
+    "mocha": "~3.5.3",
     "nock": "~9.0.2",
-    "npm-check-updates": "~2.8.5"
+    "npm-check-updates": "~2.12.1"
   }
 }
